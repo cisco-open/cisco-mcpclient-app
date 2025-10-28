@@ -1,0 +1,74 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "app",
+  "name": "MCP Client",
+  "id": "grafana-mcpclient-app",
+  "backend": true,
+  "executable": "gpx_mcpclient",
+  "info": {
+    "keywords": [
+      "app",
+      "mcp",
+      "model-context-protocol",
+      "llm",
+      "ai"
+    ],
+    "description": "Grafana app for configuring and managing Model Context Protocol (MCP) servers",
+    "author": {
+      "name": "Grafana"
+    },
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "includes": [
+    {
+      "type": "page",
+      "name": "MCP Servers",
+      "path": "/a/%PLUGIN_ID%/servers",
+      "addToNav": true,
+      "defaultNav": true,
+      "role": "Admin"
+    },
+    {
+      "type": "page",
+      "name": "Server Configuration",
+      "path": "/a/%PLUGIN_ID%/config",
+      "addToNav": true,
+      "defaultNav": false,
+      "role": "Admin"
+    },
+    {
+      "type": "page",
+      "name": "Tools & Capabilities",
+      "path": "/a/%PLUGIN_ID%/tools",
+      "addToNav": true,
+      "defaultNav": false,
+      "role": "Admin"
+    },
+    {
+      "type": "page",
+      "name": "Import/Export",
+      "path": "/a/%PLUGIN_ID%/import-export",
+      "addToNav": true,
+      "defaultNav": false,
+      "role": "Admin"
+    },
+    {
+      "type": "page",
+      "icon": "cog",
+      "name": "Configuration",
+      "path": "/plugins/%PLUGIN_ID%",
+      "role": "Admin",
+      "addToNav": true
+    }
+  ],
+  "dependencies": {
+    "grafanaDependency": ">=10.4.0",
+    "plugins": []
+  }
+}

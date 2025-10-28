@@ -1,0 +1,61 @@
+# Copyright 2025 Cisco Systems, Inc. and its affiliates
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: 1
+
+apps:
+  - type: 'grafana-mcpclient-app'
+    org_id: 1
+    org_name: 'grafana'
+    disabled: false
+    jsonData:
+      # Legacy API configuration (keeping for backward compatibility)
+      apiUrl: http://default-url.com
+
+      # New MCP Servers Configuration
+      mcpServers:
+        - id: local-grafana-mcp
+          name: Local Grafana MCP Server
+          url: http://grafana-mcp-server:8000/mcp
+          type: local
+          enabled: true
+          description: Local MCP server for development and testing
+          authType: none
+
+        - id: kubernetes-mcp
+          name: Kubernetes MCP Server
+          url: http://mcp-kubernetes-server:3041/mcp
+          type: remote
+          enabled: true
+          description: Kubernetes cluster management via MCP
+          authType: none
+
+        # Example of a production server with environment variable substitution
+        # - id: production-mcp
+        #   name: Production MCP Server
+        #   url: ${MCP_SERVER_URL}
+        #   type: remote
+        #   enabled: false
+        #   description: Production MCP server with authentication
+        #   authType: bearer
+        #   authToken: ${MCP_API_TOKEN}
+
+    secureJsonData:
+      # Legacy API key (keeping for backward compatibility)
+      apiKey: secret-key
+
+      # Secure tokens for MCP servers (reference by server ID)
+      # mcpToken_production-mcp: ${MCP_API_TOKEN}

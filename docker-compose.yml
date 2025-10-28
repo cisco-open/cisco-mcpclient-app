@@ -1,0 +1,55 @@
+# Copyright 2025 Cisco Systems, Inc. and its affiliates
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+version: '3.8'
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana-mcpclient-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-llm-app
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-mcpclient-app
+      - GRAFANA_API_KEY=${GRAFANA_API_KEY}
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./dist:/var/lib/grafana/plugins/grafana-mcpclient-app:ro
+      - ./config/mcp-servers.ini:/etc/grafana/mcp-servers.ini:ro
+    networks:
+      - grafana-network
+    depends_on:
+      - mcp-server
+
+  mcp-server:
+    image: grafana/mcp-grafana:latest
+    container_name: grafana-mcp-server-dev
+    command: ["-t", "streamable-http"]
+    ports:
+      - "3031:3031"
+    environment:
+      - GRAFANA_URL=http://grafana:3000
+      - GRAFANA_API_KEY=${GRAFANA_API_KEY}
+    networks:
+      - grafana-network
+
+volumes:
+  grafana-storage:
+
+networks:
+  grafana-network:
