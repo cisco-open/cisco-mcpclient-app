@@ -201,7 +201,7 @@ export class MCPService {
    */
   static async testDirectConnection(
     url: string,
-    authType: string = 'none',
+    authType = 'none',
     auth: DirectConnectionAuth = {}
   ): Promise<boolean> {
     console.log('MCPService.testDirectConnection() called with url:', url);

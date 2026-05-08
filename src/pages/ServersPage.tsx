@@ -105,7 +105,9 @@ function ServersPage() {
     console.log('Testing connection for server:', serverId);
     const server = servers.find(s => s.id === serverId);
     console.log('Found server:', server);
-    if (!server) return;
+    if (!server) {
+      return;
+    }
 
     try {
       const result = await MCPService.testServerConnection(serverId);
@@ -130,16 +132,28 @@ function ServersPage() {
   };
 
   const getStatusColor = (status?: MCPServerStatus): 'green' | 'orange' | 'red' | 'blue' => {
-    if (!status) return 'blue';
-    if (status.connected) return 'green';
-    if (status.error) return 'red';
+    if (!status) {
+      return 'blue';
+    }
+    if (status.connected) {
+      return 'green';
+    }
+    if (status.error) {
+      return 'red';
+    }
     return 'orange';
   };
 
   const getStatusText = (status?: MCPServerStatus): string => {
-    if (!status) return 'unknown';
-    if (status.connected) return 'connected';
-    if (status.error) return 'error';
+    if (!status) {
+      return 'unknown';
+    }
+    if (status.connected) {
+      return 'connected';
+    }
+    if (status.error) {
+      return 'error';
+    }
     return 'disconnected';
   };
 

@@ -68,7 +68,9 @@ description=Remote API MCP Server`;
   };
 
   const handleImport = async () => {
-    if (!importFile) return;
+    if (!importFile) {
+      return;
+    }
 
     try {
       const content = await importFile.text();

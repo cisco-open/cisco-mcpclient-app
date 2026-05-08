@@ -67,6 +67,7 @@ export const ServerList: React.FC<ServerListProps> = ({ onServerSelect }) => {
 
   useEffect(() => {
     loadServers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadServers = async () => {
@@ -113,7 +114,9 @@ export const ServerList: React.FC<ServerListProps> = ({ onServerSelect }) => {
   };
 
   const handleDeleteServer = async () => {
-    if (!deletingServer) return;
+    if (!deletingServer) {
+      return;
+    }
 
     try {
       setError(null);
@@ -161,7 +164,7 @@ export const ServerList: React.FC<ServerListProps> = ({ onServerSelect }) => {
     }
   };
 
-  const getStatusIcon = (status: string = 'disconnected') => {
+  const getStatusIcon = (status = 'disconnected') => {
     switch (status) {
       case 'connected':
         return <Icon name="check-circle" className={styles.statusConnected} />;
