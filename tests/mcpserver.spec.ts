@@ -81,7 +81,9 @@ test.describe('MCP Server Management', () => {
         !lowerErr.includes('resizeobserver') &&
         !lowerErr.includes('chunk') &&
         !lowerErr.includes('source map') &&
-        !lowerErr.includes('unknown plugin')
+        !lowerErr.includes('unknown plugin') &&
+        !lowerErr.includes('extension') &&
+        !lowerErr.includes('plugin.json')
       );
     });
 

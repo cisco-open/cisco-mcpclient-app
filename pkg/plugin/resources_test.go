@@ -830,12 +830,14 @@ func TestHandleToolCall(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			// Setup mcpServers if specified
+			// Setup mcpServers if specified (protected by stateMu to avoid data race with health checker)
+			stateMu.Lock()
 			if tc.setupServers != nil {
 				mcpServers = tc.setupServers
 			} else {
 				mcpServers = []MCPServer{}
 			}
+			stateMu.Unlock()
 
 			var r mockCallResourceResponseSender
 			err := app.CallResource(context.Background(), &backend.CallResourceRequest{
@@ -858,7 +860,9 @@ func TestHandleToolCall(t *testing.T) {
 			}
 
 			// Reset servers for next test
+			stateMu.Lock()
 			mcpServers = []MCPServer{}
+			stateMu.Unlock()
 		})
 	}
 }

@@ -35,7 +35,7 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children, appN
         <Alert severity="error" title="Access Denied">
           <div>
             <p>
-              You don't have permission to access {appName}.
+              You don&apos;t have permission to access {appName}.
             </p>
             <p>
               <strong>Current Role:</strong> {userInfo.orgRole}<br/>
