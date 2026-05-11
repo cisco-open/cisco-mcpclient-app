@@ -1,7 +1,7 @@
 services:
   grafana:
     image: grafana/grafana:12.1.0
-    container_name: grafana-mcpclient-ci
+    container_name: cisco-mcpclient-ci
     ports:
       - "3000:3000"
     environment:
@@ -10,7 +10,7 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_DEFAULT_APP_MODE=development
-      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-mcpclient-app
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=cisco-mcpclient-app
     volumes:
-      - ./dist:/var/lib/grafana/plugins/grafana-mcpclient-app
+      - ./dist:/var/lib/grafana/plugins/cisco-mcpclient-app
       - ./provisioning:/etc/grafana/provisioning

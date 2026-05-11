@@ -28,7 +28,7 @@ jobs:
         run: npm run build
 
       - name: Build backend
-        run: go build -o dist/gpx_mcpclient_linux_amd64 ./pkg
+        run: go build -o dist/gpx_cisco-mcpclient-app_linux_amd64 ./pkg
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
@@ -43,16 +43,16 @@ jobs:
       - name: Debug plugin directory
         run: |
           echo "=== Plugin directory listing ==="
-          docker exec grafana-mcpclient-ci ls -la /var/lib/grafana/plugins/grafana-mcpclient-app/
+          docker exec cisco-mcpclient-ci ls -la /var/lib/grafana/plugins/cisco-mcpclient-app/
           echo ""
           echo "=== plugin.json ==="
-          docker exec grafana-mcpclient-ci cat /var/lib/grafana/plugins/grafana-mcpclient-app/plugin.json | head -30
+          docker exec cisco-mcpclient-ci cat /var/lib/grafana/plugins/cisco-mcpclient-app/plugin.json | head -30
           echo ""
           echo "=== Binary file check ==="
-          docker exec grafana-mcpclient-ci file /var/lib/grafana/plugins/grafana-mcpclient-app/gpx_mcpclient_linux_amd64 || echo "Binary not found!"
+          docker exec cisco-mcpclient-ci file /var/lib/grafana/plugins/cisco-mcpclient-app/gpx_cisco-mcpclient-app_linux_amd64 || echo "Binary not found!"
           echo ""
           echo "=== Plugin API status ==="
-          curl -sf http://localhost:3000/api/plugins/grafana-mcpclient-app/settings | python3 -m json.tool || echo "API call failed"
+          curl -sf http://localhost:3000/api/plugins/cisco-mcpclient-app/settings | python3 -m json.tool || echo "API call failed"
 
       - name: Grafana logs
         if: always()

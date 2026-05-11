@@ -40,7 +40,7 @@ The Grafana MCP Client App is a Grafana application plugin that enables configur
 
    ```bash
    git clone <repository-url>
-   cd grafana-mcpclient-app
+   cd cisco-mcpclient-app
    ```
 
 2. **Install dependencies**
@@ -94,7 +94,7 @@ Access Grafana at `http://localhost:3000` (admin/admin) after setup.
 ## Project Structure
 
 ```
-grafana-mcpclient-app/
+cisco-mcpclient-app/
 ├── src/                          # Frontend TypeScript/React code
 │   ├── components/               # React components
 │   │   ├── ServerList.tsx        # MCP server listing UI
@@ -289,7 +289,7 @@ curl http://localhost:3000/api/health
 // Good: Proper error handling and typing
 async function fetchServers(): Promise<MCPServer[]> {
   try {
-    const response = await getBackendSrv().get('/api/plugins/grafana-mcpclient-app/resources/servers');
+    const response = await getBackendSrv().get('/api/plugins/cisco-mcpclient-app/resources/servers');
     return response.servers || [];
   } catch (error) {
     console.error('Failed to fetch servers:', error);

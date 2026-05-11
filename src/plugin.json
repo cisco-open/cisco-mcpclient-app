@@ -2,9 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "app",
   "name": "MCP Client",
-  "id": "grafana-mcpclient-app",
+  "id": "cisco-mcpclient-app",
   "backend": true,
-  "executable": "gpx_mcpclient",
+  "executable": "gpx_cisco-mcpclient-app",
   "info": {
     "keywords": [
       "app",
@@ -15,7 +15,7 @@
     ],
     "description": "Grafana app for configuring and managing Model Context Protocol (MCP) servers",
     "author": {
-      "name": "Grafana"
+      "name": "Cisco Systems, Inc."
     },
     "logos": {
       "small": "img/logo.svg",

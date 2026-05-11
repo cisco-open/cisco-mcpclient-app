@@ -57,7 +57,7 @@ jobs:
 
       - name: Package plugin
         run: |
-          PLUGIN_ID="grafana-mcpclient-app"
+          PLUGIN_ID="cisco-mcpclient-app"
           VERSION="${GITHUB_REF_NAME#v}"
           cd dist
           zip -r "../${PLUGIN_ID}-${VERSION}.zip" .
