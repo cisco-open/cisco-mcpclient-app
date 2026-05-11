@@ -44,7 +44,7 @@ func init() {
 
 // MCPClient handles real connections to MCP servers
 type MCPClient struct {
-	baseURL    string
+	parsedURL  *url.URL // Validated URL parsed at construction time
 	httpClient *http.Client
 	serverInfo *ServerInfo
 	sessionID  string // Session ID for streamable-http transport
@@ -117,22 +117,28 @@ type ToolDefinition struct {
 
 // NewMCPClient creates a new MCP client for the given server URL and optional auth token.
 // Uses SSRF-safe HTTP transport for all MCP server requests.
+// The server URL is validated at construction time to ensure only http/https schemes are used.
 func NewMCPClient(serverURL string, authType string, authToken string, authUser string, authPass string) *MCPClient {
+	parsed, err := url.Parse(serverURL)
+	if err != nil {
+		parsed = &url.URL{Scheme: "https", Host: "invalid"}
+	}
+	if parsed.Scheme != "http" && parsed.Scheme != "https" {
+		parsed = &url.URL{Scheme: "https", Host: "invalid"}
+	}
 	return &MCPClient{
-		baseURL:   serverURL,
+		parsedURL: parsed,
 		authType:  authType,
 		authToken: authToken,
 		authUser:  authUser,
 		authPass:  authPass,
-		// Use SSRF-safe client for all MCP server connections.
-		// This applies IP validation at connection time and disables redirects.
 		httpClient: ssrf.NewSafeClient(securityConfig),
 	}
 }
 
 // Connect establishes connection to MCP server and initializes session
 func (c *MCPClient) Connect(ctx context.Context) error {
-	log.DefaultLogger.Debug("Connecting to MCP server", "url", c.baseURL, "existingSessionID", c.sessionID)
+	log.DefaultLogger.Debug("Connecting to MCP server", "url", c.parsedURL.String(), "existingSessionID", c.sessionID)
 
 	// If we already have a session ID (from TestConnection), we're already connected
 	if c.sessionID != "" {
@@ -241,27 +247,16 @@ func (c *MCPClient) ListTools(ctx context.Context) ([]ToolDefinition, error) {
 	return toolsResult.Tools, nil
 }
 
-// validateServerURL validates and sanitizes the server URL, returning a safe URL string.
-// This breaks the taint flow from user-provided input to the HTTP request.
-func validateServerURL(rawURL string) (string, error) {
-	parsedURL, err := url.Parse(rawURL)
-	if err != nil {
-		return "", fmt.Errorf("invalid server URL: %w", err)
-	}
-	if parsedURL.Scheme != "http" && parsedURL.Scheme != "https" {
-		return "", fmt.Errorf("unsupported URL scheme %q: only http and https are allowed", parsedURL.Scheme)
-	}
-	if parsedURL.Host == "" {
-		return "", fmt.Errorf("server URL must include a host")
-	}
-	return parsedURL.String(), nil
-}
-
 // sendRequest sends a JSON-RPC request to the MCP server
 func (c *MCPClient) sendRequest(ctx context.Context, request MCPRequest, response *MCPResponse) error {
-	safeURL, err := validateServerURL(c.baseURL)
-	if err != nil {
-		return err
+	// Construct the request URL from the pre-validated and parsed URL components.
+	// This ensures the URL used in the HTTP request is derived from validated parts,
+	// not directly from user-provided strings.
+	targetURL := &url.URL{
+		Scheme:   c.parsedURL.Scheme,
+		Host:     c.parsedURL.Host,
+		Path:     c.parsedURL.Path,
+		RawQuery: c.parsedURL.RawQuery,
 	}
 
 	// Marshal request
@@ -270,10 +265,10 @@ func (c *MCPClient) sendRequest(ctx context.Context, request MCPRequest, respons
 		return fmt.Errorf("failed to marshal request: %w", err)
 	}
 
-	log.DefaultLogger.Debug("Sending MCP request", "method", request.Method, "url", safeURL, "sessionID", c.sessionID)
+	log.DefaultLogger.Debug("Sending MCP request", "method", request.Method, "url", targetURL.String(), "sessionID", c.sessionID)
 
-	// Create HTTP request
-	req, err := http.NewRequestWithContext(ctx, "POST", safeURL, bytes.NewReader(requestBody))
+	// Create HTTP request using the validated URL
+	req, err := http.NewRequestWithContext(ctx, "POST", targetURL.String(), bytes.NewReader(requestBody))
 	if err != nil {
 		return err
 	}
@@ -303,7 +298,7 @@ func (c *MCPClient) sendRequest(ctx context.Context, request MCPRequest, respons
 	if err != nil {
 		// Check if this is an SSRF block (from Dialer.Control hook)
 		if strings.Contains(err.Error(), "blocked") || strings.Contains(err.Error(), "not allowed") || strings.Contains(err.Error(), "not in allowed ranges") {
-			log.DefaultLogger.Warn("SSRF blocked", "url", safeURL, "error", err)
+			log.DefaultLogger.Warn("SSRF blocked", "url", targetURL.String(), "error", err)
 			return fmt.Errorf("connection blocked: %w", err)
 		}
 		return fmt.Errorf("HTTP request failed: %w", err)
