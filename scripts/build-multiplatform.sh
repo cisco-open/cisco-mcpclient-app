@@ -21,7 +21,7 @@ set -e
 echo "🚀 Building Grafana MCP Client App for Multiple Platforms..."
 
 # Configuration
-PLUGIN_NAME="grafana-mcpclient-app"
+PLUGIN_NAME="cisco-mcpclient-app"
 VERSION=${VERSION:-"1.0.0"}
 BUILD_DIR="dist"
 PACKAGE_DIR="package"
@@ -142,10 +142,10 @@ Grafana will automatically select the correct binary for your platform.
 1. Extract this archive to your Grafana plugins directory:
    ```bash
    # For standard Grafana installation
-   unzip grafana-mcpclient-app-1.0.0.zip -d /var/lib/grafana/plugins/
+   unzip cisco-mcpclient-app-1.0.0.zip -d /var/lib/grafana/plugins/
 
    # For Docker/container installations
-   unzip grafana-mcpclient-app-1.0.0.zip -d /var/lib/grafana/plugins/
+   unzip cisco-mcpclient-app-1.0.0.zip -d /var/lib/grafana/plugins/
    ```
 
 2. Configure the plugin in Grafana provisioning or enable it manually in the UI.
@@ -159,7 +159,7 @@ Add MCP servers in `/etc/grafana/provisioning/plugins/apps.yaml`:
 ```yaml
 apiVersion: 1
 apps:
-  - type: 'grafana-mcpclient-app'
+  - type: 'cisco-mcpclient-app'
     org_id: 1
     disabled: false
     jsonData:

@@ -1,4 +1,4 @@
-# Gitleaks configuration for grafana-mcpclient-app
+# Gitleaks configuration for cisco-mcpclient-app
 # Source: https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
 
 [extend]

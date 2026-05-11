@@ -21,7 +21,7 @@ set -e
 echo "📦 Creating Grafana MCP Client App Distribution Package..."
 
 # Configuration
-PLUGIN_NAME="grafana-mcpclient-app"
+PLUGIN_NAME="cisco-mcpclient-app"
 VERSION=${VERSION:-"1.0.0"}
 BUILD_DIR="dist"
 PACKAGE_DIR="package"
@@ -63,17 +63,17 @@ cat > "$PACKAGE_DIR/INSTALLATION.md" << 'EOF'
 1. Extract this archive to your Grafana plugins directory:
    ```bash
    # For standard Grafana installation
-   unzip grafana-mcpclient-app.zip -d /var/lib/grafana/plugins/
+   unzip cisco-mcpclient-app.zip -d /var/lib/grafana/plugins/
 
    # For Docker/container deployments
-   unzip grafana-mcpclient-app.zip -d ./grafana/plugins/
+   unzip cisco-mcpclient-app.zip -d ./grafana/plugins/
    ```
 
 2. Configure unsigned plugin in Grafana:
    ```ini
    # In grafana.ini
    [plugins]
-   allow_loading_unsigned_plugins = grafana-mcpclient-app
+   allow_loading_unsigned_plugins = cisco-mcpclient-app
    ```
 
 3. Restart Grafana
@@ -114,7 +114,7 @@ auth_type=bearer
 auth_token=${MCP_API_TOKEN}
 ```
 
-For more information, visit: https://github.com/your-org/grafana-mcpclient-app
+For more information, visit: https://github.com/your-org/cisco-mcpclient-app
 EOF
 
 # Create version info

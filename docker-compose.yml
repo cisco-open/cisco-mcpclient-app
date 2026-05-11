@@ -25,11 +25,11 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_INSTALL_PLUGINS=grafana-llm-app
-      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-mcpclient-app
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=cisco-mcpclient-app
       - GRAFANA_API_KEY=${GRAFANA_API_KEY}
     volumes:
       - grafana-storage:/var/lib/grafana
-      - ./dist:/var/lib/grafana/plugins/grafana-mcpclient-app:ro
+      - ./dist:/var/lib/grafana/plugins/cisco-mcpclient-app:ro
       - ./config/mcp-servers.ini:/etc/grafana/mcp-servers.ini:ro
     networks:
       - grafana-network

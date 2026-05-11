@@ -37,9 +37,9 @@ describe('Components/App', () => {
     jest.resetAllMocks();
 
     props = {
-      basename: 'a/grafana-mcpclient-app',
+      basename: 'a/cisco-mcpclient-app',
       meta: {
-        id: 'grafana-mcpclient-app',
+        id: 'cisco-mcpclient-app',
         name: 'MCP Client',
         type: PluginType.app,
         enabled: true,

@@ -132,7 +132,7 @@ export const ServerConfigForm: React.FC<ServerConfigFormProps> = ({
       setTestResult(null);
 
       // TODO: Replace with real MCP connection test
-      // const response = await fetch('/api/plugins/grafana-mcpclient-app/resources/test', {
+      // const response = await fetch('/api/plugins/cisco-mcpclient-app/resources/test', {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
       //   body: JSON.stringify(config)

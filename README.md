@@ -66,7 +66,7 @@ Installation via grafana-cli will be available once published to the Grafana plu
 
 ```bash
 # Coming soon:
-# grafana-cli plugins install grafana-mcpclient-app
+# grafana-cli plugins install cisco-mcpclient-app
 ```
 
 ### Manual Installation
@@ -84,7 +84,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     environment:
-      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-mcpclient-app
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=cisco-mcpclient-app
       - MCP_SERVER_URL=${MCP_SERVER_URL}
       - MCP_API_TOKEN=${MCP_API_TOKEN}
     volumes:
@@ -97,7 +97,7 @@ services:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd grafana-mcpclient-app
+cd cisco-mcpclient-app
 
 # Install dependencies
 npm install
@@ -114,7 +114,7 @@ MCP servers are configured through Grafana's app provisioning system. Create or 
 apiVersion: 1
 
 apps:
-  - type: 'grafana-mcpclient-app'
+  - type: 'cisco-mcpclient-app'
     org_id: 1
     org_name: 'grafana'
     disabled: false
@@ -247,10 +247,10 @@ Use `/config/reload` API endpoint to reload configuration without restart.
 3. **Validate Configuration**
    ```bash
    # Check configuration status
-   curl http://localhost:3000/api/plugins/grafana-mcpclient-app/resources/config/status
+   curl http://localhost:3000/api/plugins/cisco-mcpclient-app/resources/config/status
 
    # Reload configuration
-   curl http://localhost:3000/api/plugins/grafana-mcpclient-app/resources/config/reload
+   curl http://localhost:3000/api/plugins/cisco-mcpclient-app/resources/config/reload
    ```
 
 ## Development
@@ -311,13 +311,13 @@ npm run e2e
 
 ```bash
 # Plugin availability
-curl http://localhost:3000/api/plugins/grafana-mcpclient-app/resources/ping
+curl http://localhost:3000/api/plugins/cisco-mcpclient-app/resources/ping
 
 # Server status
-curl http://localhost:3000/api/plugins/grafana-mcpclient-app/resources/status
+curl http://localhost:3000/api/plugins/cisco-mcpclient-app/resources/status
 
 # Tool availability
-curl http://localhost:3000/api/plugins/grafana-mcpclient-app/resources/tools
+curl http://localhost:3000/api/plugins/cisco-mcpclient-app/resources/tools
 ```
 
 ### High Availability

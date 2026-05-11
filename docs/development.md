@@ -18,7 +18,7 @@ The Grafana MCP Client App is a plugin for configuring and managing Model Contex
 ```bash
 # Clone and setup
 git clone <repository-url>
-cd grafana-mcpclient-app
+cd cisco-mcpclient-app
 
 # Start development environment
 ./scripts/dev.sh
@@ -143,7 +143,7 @@ auth_token=${MCP_API_TOKEN}
 ## Plugin Structure
 
 ```text
-grafana-mcpclient-app/
+cisco-mcpclient-app/
 ├── src/                          # Frontend source code
 │   ├── components/               # React components
 │   ├── services/                 # API services
@@ -167,13 +167,13 @@ grafana-mcpclient-app/
 
 The Go backend provides these API endpoints:
 
-- `GET /api/plugins/grafana-mcpclient-app/resources/servers` - List configured MCP servers
-- `POST /api/plugins/grafana-mcpclient-app/resources/servers` - Add new MCP server
-- `GET /api/plugins/grafana-mcpclient-app/resources/servers/{id}` - Get server details
-- `PUT /api/plugins/grafana-mcpclient-app/resources/servers/{id}` - Update server configuration
-- `DELETE /api/plugins/grafana-mcpclient-app/resources/servers/{id}` - Remove server
-- `GET /api/plugins/grafana-mcpclient-app/resources/tools` - List available tools from all servers
-- `POST /api/plugins/grafana-mcpclient-app/resources/config/reload` - Reload configuration from files
+- `GET /api/plugins/cisco-mcpclient-app/resources/servers` - List configured MCP servers
+- `POST /api/plugins/cisco-mcpclient-app/resources/servers` - Add new MCP server
+- `GET /api/plugins/cisco-mcpclient-app/resources/servers/{id}` - Get server details
+- `PUT /api/plugins/cisco-mcpclient-app/resources/servers/{id}` - Update server configuration
+- `DELETE /api/plugins/cisco-mcpclient-app/resources/servers/{id}` - Remove server
+- `GET /api/plugins/cisco-mcpclient-app/resources/tools` - List available tools from all servers
+- `POST /api/plugins/cisco-mcpclient-app/resources/config/reload` - Reload configuration from files
 
 ### Frontend Services
 
@@ -224,7 +224,7 @@ curl -X POST http://localhost:3031 \
   -d '{"jsonrpc": "2.0", "method": "initialize", "id": 1}'
 
 # Check plugin API endpoints
-curl http://localhost:3000/api/plugins/grafana-mcpclient-app/resources/servers
+curl http://localhost:3000/api/plugins/cisco-mcpclient-app/resources/servers
 ```
 
 ## Contributing
@@ -244,7 +244,7 @@ curl http://localhost:3000/api/plugins/grafana-mcpclient-app/resources/servers
 
 # The dist/ directory contains the complete plugin
 # Package for distribution:
-cd dist && zip -r grafana-mcpclient-app.zip .
+cd dist && zip -r cisco-mcpclient-app.zip .
 ```
 
 ### Installation

@@ -172,7 +172,7 @@ func (c *MCPClient) initialize(ctx context.Context) error {
 			},
 		},
 		ClientInfo: ClientInfo{
-			Name:    "grafana-mcpclient-app",
+			Name:    "cisco-mcpclient-app",
 			Version: "1.0.0",
 		},
 	}
@@ -348,7 +348,7 @@ func (c *MCPClient) TestConnection(ctx context.Context) error {
 		ProtocolVersion: "2024-11-05",
 		Capabilities:    map[string]interface{}{},
 		ClientInfo: ClientInfo{
-			Name:    "grafana-mcpclient-app",
+			Name:    "cisco-mcpclient-app",
 			Version: "1.0.0",
 		},
 	}

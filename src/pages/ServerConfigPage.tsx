@@ -202,7 +202,7 @@ function ServerConfigPage() {
 
       // Navigate back to servers page after a short delay
       setTimeout(() => {
-        locationService.push('/a/grafana-mcpclient-app');
+        locationService.push('/a/cisco-mcpclient-app');
       }, 1500);
     } catch (error) {
       console.error('Error saving server config:', error);
@@ -216,7 +216,7 @@ function ServerConfigPage() {
   };
 
   const handleCancel = () => {
-    locationService.push('/a/grafana-mcpclient-app');
+    locationService.push('/a/cisco-mcpclient-app');
   };
 
   if (loading) {

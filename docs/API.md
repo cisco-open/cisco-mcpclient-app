@@ -2,7 +2,7 @@
 
 Backend REST API for the Grafana MCP Client plugin.
 
-**Base URL:** `/api/plugins/grafana-mcpclient-app/resources`
+**Base URL:** `/api/plugins/cisco-mcpclient-app/resources`
 
 ## Endpoints
 

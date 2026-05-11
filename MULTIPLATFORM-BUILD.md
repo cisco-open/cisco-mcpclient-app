@@ -34,7 +34,7 @@ GOOS=linux GOARCH=amd64 go build -o dist/gpx_mcpclient ./pkg
 ## Build Outputs
 
 - **`package/`** - Complete plugin package with all platform binaries
-- **`grafana-mcpclient-app-1.0.0.zip`** - Distribution ZIP file
+- **`cisco-mcpclient-app-1.0.0.zip`** - Distribution ZIP file
 - **`go_plugin_build_manifest`** - Build metadata and file hashes
 
 ## Script Features
@@ -68,13 +68,13 @@ The plugin automatically selects the correct binary based on the target platform
 
 ```bash
 # Build for all platforms
-cd grafana-mcpclient-app
+cd cisco-mcpclient-app
 npm run package:multi
 
 # Deploy to different environments
 # Linux server
-scp grafana-mcpclient-app-1.0.0.zip server:/var/lib/grafana/plugins/
-ssh server "cd /var/lib/grafana/plugins && unzip -o grafana-mcpclient-app-1.0.0.zip"
+scp cisco-mcpclient-app-1.0.0.zip server:/var/lib/grafana/plugins/
+ssh server "cd /var/lib/grafana/plugins && unzip -o cisco-mcpclient-app-1.0.0.zip"
 
 # Windows server
 # Extract ZIP to C:\Program Files\GrafanaLabs\grafana\data\plugins\

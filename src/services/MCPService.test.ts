@@ -51,7 +51,7 @@ describe('MCPService', () => {
       expect(result).toBe(true);
       expect(mockFetch).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: '/api/plugins/grafana-mcpclient-app/resources/ping',
+          url: '/api/plugins/cisco-mcpclient-app/resources/ping',
           method: 'GET',
         })
       );
@@ -92,7 +92,7 @@ describe('MCPService', () => {
       expect(result[1].name).toBe('Server 2');
       expect(mockFetch).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: '/api/plugins/grafana-mcpclient-app/resources/servers',
+          url: '/api/plugins/cisco-mcpclient-app/resources/servers',
           method: 'GET',
         })
       );
@@ -142,7 +142,7 @@ describe('MCPService', () => {
       expect(result).toEqual(mockServer);
       expect(mockFetch).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: '/api/plugins/grafana-mcpclient-app/resources/servers/server-123',
+          url: '/api/plugins/cisco-mcpclient-app/resources/servers/server-123',
           method: 'GET',
         })
       );
@@ -177,7 +177,7 @@ describe('MCPService', () => {
       expect(result.id).toBe('new-123');
       expect(mockFetch).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: '/api/plugins/grafana-mcpclient-app/resources/servers',
+          url: '/api/plugins/cisco-mcpclient-app/resources/servers',
           method: 'POST',
           data: newServer,
         })
@@ -216,7 +216,7 @@ describe('MCPService', () => {
       expect(result).toEqual(updatedServer);
       expect(mockFetch).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: '/api/plugins/grafana-mcpclient-app/resources/servers/server-123',
+          url: '/api/plugins/cisco-mcpclient-app/resources/servers/server-123',
           method: 'PUT',
           data: updatedServer,
         })
@@ -248,7 +248,7 @@ describe('MCPService', () => {
 
       expect(mockFetch).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: '/api/plugins/grafana-mcpclient-app/resources/servers/server-123',
+          url: '/api/plugins/cisco-mcpclient-app/resources/servers/server-123',
           method: 'DELETE',
         })
       );
@@ -275,7 +275,7 @@ describe('MCPService', () => {
       expect(result).toBe(true);
       expect(mockFetch).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: '/api/plugins/grafana-mcpclient-app/resources/servers/server-123/test',
+          url: '/api/plugins/cisco-mcpclient-app/resources/servers/server-123/test',
           method: 'POST',
         })
       );
@@ -347,7 +347,7 @@ describe('MCPService', () => {
       expect(result).toBe(true);
       expect(mockFetch).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: '/api/plugins/grafana-mcpclient-app/resources/test-connection',
+          url: '/api/plugins/cisco-mcpclient-app/resources/test-connection',
           method: 'POST',
           data: { url: 'http://test.local', authType: 'bearer', authToken: 'token123' },
         })
@@ -516,7 +516,7 @@ describe('MCPService', () => {
       expect(result).toHaveLength(2);
       expect(mockFetch).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: '/api/plugins/grafana-mcpclient-app/resources/tools',
+          url: '/api/plugins/cisco-mcpclient-app/resources/tools',
           method: 'GET',
         })
       );
@@ -557,7 +557,7 @@ describe('MCPService', () => {
         error: undefined,
       });
       expect(mockFetch).toHaveBeenCalledWith(expect.objectContaining({
-        url: '/api/plugins/grafana-mcpclient-app/resources/tools/call',
+        url: '/api/plugins/cisco-mcpclient-app/resources/tools/call',
         method: 'POST',
         data: {
           tool_name: 'testTool',
@@ -629,7 +629,7 @@ describe('MCPService', () => {
         enableLogging: true,
       });
       expect(mockFetch).toHaveBeenCalledWith(expect.objectContaining({
-        url: '/api/plugins/grafana-mcpclient-app/resources/config',
+        url: '/api/plugins/cisco-mcpclient-app/resources/config',
         method: 'GET',
       }));
     });
@@ -655,7 +655,7 @@ describe('MCPService', () => {
 
       expect(result).toEqual(newConfig);
       expect(mockFetch).toHaveBeenCalledWith(expect.objectContaining({
-        url: '/api/plugins/grafana-mcpclient-app/resources/config',
+        url: '/api/plugins/cisco-mcpclient-app/resources/config',
         method: 'POST',
         data: newConfig,
       }));

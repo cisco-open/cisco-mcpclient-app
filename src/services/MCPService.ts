@@ -96,7 +96,7 @@ export class MCPService {
     console.log('MCPService.isServiceAvailable() called');
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: '/api/plugins/grafana-mcpclient-app/resources/ping',
+        url: '/api/plugins/cisco-mcpclient-app/resources/ping',
         method: 'GET',
       }));
       console.log('isServiceAvailable response:', response);
@@ -113,7 +113,7 @@ export class MCPService {
   static async getServerConfigs(): Promise<MCPServerConfig[]> {
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: '/api/plugins/grafana-mcpclient-app/resources/servers',
+        url: '/api/plugins/cisco-mcpclient-app/resources/servers',
         method: 'GET',
       }));
       return (response.data as any)?.servers || [];
@@ -155,7 +155,7 @@ export class MCPService {
     console.log('MCPService.getServerDetailedStatus() called with serverId:', serverId);
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: `/api/plugins/grafana-mcpclient-app/resources/servers/${serverId}/test`,
+        url: `/api/plugins/cisco-mcpclient-app/resources/servers/${serverId}/test`,
         method: 'POST',
       }));
       console.log('getServerDetailedStatus response:', response);
@@ -185,7 +185,7 @@ export class MCPService {
     console.log('MCPService.testServerConnection() called with serverId:', serverId);
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: `/api/plugins/grafana-mcpclient-app/resources/servers/${serverId}/test`,
+        url: `/api/plugins/cisco-mcpclient-app/resources/servers/${serverId}/test`,
         method: 'POST',
       }));
       console.log('testServerConnection response:', response);
@@ -207,7 +207,7 @@ export class MCPService {
     console.log('MCPService.testDirectConnection() called with url:', url);
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: `/api/plugins/grafana-mcpclient-app/resources/test-connection`,
+        url: `/api/plugins/cisco-mcpclient-app/resources/test-connection`,
         method: 'POST',
         data: {
           url,
@@ -230,7 +230,7 @@ export class MCPService {
     console.log('MCPService.addServer() called with config:', config);
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: '/api/plugins/grafana-mcpclient-app/resources/servers',
+        url: '/api/plugins/cisco-mcpclient-app/resources/servers',
         method: 'POST',
         data: MCPService.toServerPayload(config),
       }));
@@ -249,7 +249,7 @@ export class MCPService {
     console.log('MCPService.updateServer() called with config:', config);
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: `/api/plugins/grafana-mcpclient-app/resources/servers/${config.id}`,
+        url: `/api/plugins/cisco-mcpclient-app/resources/servers/${config.id}`,
         method: 'PUT',
         data: MCPService.toServerPayload(config),
       }));
@@ -268,7 +268,7 @@ export class MCPService {
     console.log('MCPService.getServer() called with serverId:', serverId);
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: `/api/plugins/grafana-mcpclient-app/resources/servers/${serverId}`,
+        url: `/api/plugins/cisco-mcpclient-app/resources/servers/${serverId}`,
         method: 'GET',
       }));
       console.log('getServer response:', response);
@@ -286,7 +286,7 @@ export class MCPService {
     console.log('MCPService.removeServer() called with serverId:', serverId);
     try {
       await lastValueFrom(getBackendSrv().fetch({
-        url: `/api/plugins/grafana-mcpclient-app/resources/servers/${serverId}`,
+        url: `/api/plugins/cisco-mcpclient-app/resources/servers/${serverId}`,
         method: 'DELETE',
       }));
       console.log('removeServer completed successfully');
@@ -349,7 +349,7 @@ export class MCPService {
     console.log('MCPService.getAllTools() called');
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: '/api/plugins/grafana-mcpclient-app/resources/tools',
+        url: '/api/plugins/cisco-mcpclient-app/resources/tools',
         method: 'GET',
       }));
       console.log('getAllTools response:', response);
@@ -373,7 +373,7 @@ export class MCPService {
     console.log('MCPService.callTool() called with:', { toolName, args, serverId });
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: '/api/plugins/grafana-mcpclient-app/resources/tools/call',
+        url: '/api/plugins/cisco-mcpclient-app/resources/tools/call',
         method: 'POST',
         data: {
           tool_name: toolName,
@@ -405,7 +405,7 @@ export class MCPService {
     console.log('MCPService.getConfig() called');
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: '/api/plugins/grafana-mcpclient-app/resources/config',
+        url: '/api/plugins/cisco-mcpclient-app/resources/config',
         method: 'GET',
       }));
       console.log('getConfig response:', response);
@@ -423,7 +423,7 @@ export class MCPService {
     console.log('MCPService.setConfig() called with:', config);
     try {
       const response = await lastValueFrom(getBackendSrv().fetch({
-        url: '/api/plugins/grafana-mcpclient-app/resources/config',
+        url: '/api/plugins/cisco-mcpclient-app/resources/config',
         method: 'POST',
         data: config,
       }));
