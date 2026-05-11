@@ -292,7 +292,7 @@ func serverConnectionConfigChanged(before, after MCPServer) bool {
 func buildClientCacheKey(serverURL, authType, authToken, authUser, authPass string) string {
 	secretMaterial := authType + "\x00" + authToken + "\x00" + authUser + "\x00" + authPass
 	sum := sha256.Sum256([]byte(secretMaterial))
-	return serverURL + "|" + hex.EncodeToString(sum[:8])
+	return serverURL + "|" + hex.EncodeToString(sum[:])
 }
 
 // initializeConfiguration loads MCP server configurations from provisioning

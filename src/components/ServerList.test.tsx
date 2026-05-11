@@ -109,7 +109,7 @@ describe('ServerList', () => {
       render(<ServerList />);
 
       await waitFor(() => {
-        expect(screen.getByText(/http:\/\/test.example.com/)).toBeInTheDocument();
+        expect(screen.getByText('http://test.example.com')).toBeInTheDocument();
       });
     });
 
