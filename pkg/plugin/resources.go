@@ -18,6 +18,7 @@ package plugin
 
 import (
 	"context"
+	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -291,8 +292,9 @@ func serverConnectionConfigChanged(before, after MCPServer) bool {
 
 func buildClientCacheKey(serverURL, authType, authToken, authUser, authPass string) string {
 	secretMaterial := authType + "\x00" + authToken + "\x00" + authUser + "\x00" + authPass
-	sum := sha256.Sum256([]byte(secretMaterial))
-	return serverURL + "|" + hex.EncodeToString(sum[:])
+	mac := hmac.New(sha256.New, []byte(serverURL))
+	mac.Write([]byte(secretMaterial))
+	return serverURL + "|" + hex.EncodeToString(mac.Sum(nil))
 }
 
 // initializeConfiguration loads MCP server configurations from provisioning

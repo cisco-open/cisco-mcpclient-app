@@ -241,18 +241,27 @@ func (c *MCPClient) ListTools(ctx context.Context) ([]ToolDefinition, error) {
 	return toolsResult.Tools, nil
 }
 
-// sendRequest sends a JSON-RPC request to the MCP server
-func (c *MCPClient) sendRequest(ctx context.Context, request MCPRequest, response *MCPResponse) error {
-	// Use the baseURL directly (it should already include the /mcp endpoint)
-	messageURL := c.baseURL
-
-	// Validate URL scheme to prevent SSRF via unexpected protocols
-	parsedURL, err := url.Parse(messageURL)
+// validateServerURL validates and sanitizes the server URL, returning a safe URL string.
+// This breaks the taint flow from user-provided input to the HTTP request.
+func validateServerURL(rawURL string) (string, error) {
+	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
-		return fmt.Errorf("invalid server URL: %w", err)
+		return "", fmt.Errorf("invalid server URL: %w", err)
 	}
 	if parsedURL.Scheme != "http" && parsedURL.Scheme != "https" {
-		return fmt.Errorf("unsupported URL scheme %q: only http and https are allowed", parsedURL.Scheme)
+		return "", fmt.Errorf("unsupported URL scheme %q: only http and https are allowed", parsedURL.Scheme)
+	}
+	if parsedURL.Host == "" {
+		return "", fmt.Errorf("server URL must include a host")
+	}
+	return parsedURL.String(), nil
+}
+
+// sendRequest sends a JSON-RPC request to the MCP server
+func (c *MCPClient) sendRequest(ctx context.Context, request MCPRequest, response *MCPResponse) error {
+	safeURL, err := validateServerURL(c.baseURL)
+	if err != nil {
+		return err
 	}
 
 	// Marshal request
@@ -261,10 +270,10 @@ func (c *MCPClient) sendRequest(ctx context.Context, request MCPRequest, respons
 		return fmt.Errorf("failed to marshal request: %w", err)
 	}
 
-	log.DefaultLogger.Debug("Sending MCP request", "method", request.Method, "url", messageURL, "sessionID", c.sessionID)
+	log.DefaultLogger.Debug("Sending MCP request", "method", request.Method, "url", safeURL, "sessionID", c.sessionID)
 
 	// Create HTTP request
-	req, err := http.NewRequestWithContext(ctx, "POST", messageURL, bytes.NewReader(requestBody))
+	req, err := http.NewRequestWithContext(ctx, "POST", safeURL, bytes.NewReader(requestBody))
 	if err != nil {
 		return err
 	}
@@ -294,7 +303,7 @@ func (c *MCPClient) sendRequest(ctx context.Context, request MCPRequest, respons
 	if err != nil {
 		// Check if this is an SSRF block (from Dialer.Control hook)
 		if strings.Contains(err.Error(), "blocked") || strings.Contains(err.Error(), "not allowed") || strings.Contains(err.Error(), "not in allowed ranges") {
-			log.DefaultLogger.Warn("SSRF blocked", "url", messageURL, "error", err)
+			log.DefaultLogger.Warn("SSRF blocked", "url", safeURL, "error", err)
 			return fmt.Errorf("connection blocked: %w", err)
 		}
 		return fmt.Errorf("HTTP request failed: %w", err)
