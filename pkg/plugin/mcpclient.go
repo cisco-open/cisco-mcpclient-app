@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
@@ -244,6 +245,15 @@ func (c *MCPClient) ListTools(ctx context.Context) ([]ToolDefinition, error) {
 func (c *MCPClient) sendRequest(ctx context.Context, request MCPRequest, response *MCPResponse) error {
 	// Use the baseURL directly (it should already include the /mcp endpoint)
 	messageURL := c.baseURL
+
+	// Validate URL scheme to prevent SSRF via unexpected protocols
+	parsedURL, err := url.Parse(messageURL)
+	if err != nil {
+		return fmt.Errorf("invalid server URL: %w", err)
+	}
+	if parsedURL.Scheme != "http" && parsedURL.Scheme != "https" {
+		return fmt.Errorf("unsupported URL scheme %q: only http and https are allowed", parsedURL.Scheme)
+	}
 
 	// Marshal request
 	requestBody, err := json.Marshal(request)
