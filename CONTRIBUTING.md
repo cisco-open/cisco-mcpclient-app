@@ -140,10 +140,10 @@ cisco-mcpclient-app/
 
    ```bash
    # Local development (macOS/Linux)
-   go build -o dist/gpx_mcpclient ./pkg
+   go build -o dist/gpx_cisco-mcpclient-app ./pkg
 
    # Container deployment (Linux)
-   GOOS=linux GOARCH=amd64 go build -o dist/gpx_mcpclient ./pkg
+   GOOS=linux GOARCH=amd64 go build -o dist/gpx_cisco-mcpclient-app ./pkg
    ```
 
 3. **Test locally** before containerization
@@ -234,7 +234,7 @@ go test ./pkg/...
 
 # Build verification
 npm run build && echo "Frontend build successful"
-go build -o dist/gpx_mcpclient ./pkg && echo "Backend build successful"
+go build -o dist/gpx_cisco-mcpclient-app ./pkg && echo "Backend build successful"
 ```
 
 ### Integration Testing

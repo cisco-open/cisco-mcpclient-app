@@ -7,16 +7,16 @@ The MCP Client App now supports multi-platform builds, creating binaries for all
 ## Supported Platforms
 
 ✅ **macOS**
-- Intel (x86_64): `gpx_mcpclient_darwin_amd64`
-- Apple Silicon (ARM64): `gpx_mcpclient_darwin_arm64`
+- Intel (x86_64): `gpx_cisco-mcpclient-app_darwin_amd64`
+- Apple Silicon (ARM64): `gpx_cisco-mcpclient-app_darwin_arm64`
 
 ✅ **Linux**
-- AMD64/x86_64: `gpx_mcpclient_linux_amd64`
-- ARM 32-bit: `gpx_mcpclient_linux_arm`
-- ARM 64-bit: `gpx_mcpclient_linux_arm64`
+- AMD64/x86_64: `gpx_cisco-mcpclient-app_linux_amd64`
+- ARM 32-bit: `gpx_cisco-mcpclient-app_linux_arm`
+- ARM 64-bit: `gpx_cisco-mcpclient-app_linux_arm64`
 
 ✅ **Windows**
-- AMD64/x86_64: `gpx_mcpclient_windows_amd64.exe`
+- AMD64/x86_64: `gpx_cisco-mcpclient-app_windows_amd64.exe`
 
 ## Building
 
@@ -28,7 +28,7 @@ npm run package:multi
 ### Single Platform Build (Development)
 ```bash
 npm run build
-GOOS=linux GOARCH=amd64 go build -o dist/gpx_mcpclient ./pkg
+GOOS=linux GOARCH=amd64 go build -o dist/gpx_cisco-mcpclient-app ./pkg
 ```
 
 ## Build Outputs
