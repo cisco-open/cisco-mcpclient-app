@@ -34,7 +34,7 @@ jobs:
           for platform in "${PLATFORMS[@]}"; do
             GOOS="${platform%/*}"
             GOARCH="${platform#*/}"
-            output="dist/gpx_mcpclient_${GOOS}_${GOARCH}"
+            output="dist/gpx_cisco-mcpclient-app_${GOOS}_${GOARCH}"
             if [ "$GOOS" = "windows" ]; then
               output="${output}.exe"
             fi
